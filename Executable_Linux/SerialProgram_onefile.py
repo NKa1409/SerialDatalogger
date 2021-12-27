@@ -1,4 +1,4 @@
-#Onefile of the same Program
+#!/usr/bin/env python3
 
 # -*- encoding: utf-8 -*-
 
