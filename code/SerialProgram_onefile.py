@@ -486,105 +486,105 @@ def get_string_from_user(break_word="stop", first_accepted_word="", second_accep
             return user_input
 
 
-
-print("Starting Program...")
-serial = SerialClass()
-print("")
-print("")
-while True:
-    serial_commands()
+if __name__ == "__main__":
+    print("Starting Program...")
+    serial = SerialClass()
+    print("")
+    print("")
     while True:
-        cmd = get_string_from_user()
-        if cmd is None:
-            serial_commands()
-            continue
-        if cmd.lower() == "close":
-            sys.exit()
-        elif cmd.lower() == "set filename":
-            serial.set_filename_and_timestamp()
-            serial_commands()
-        elif cmd.lower() == "log" or cmd.lower() == "start logging":
-            print("")
-            print("Press 'q' to stop logging data.")
-            while True:
-                serial_data = serial.serial_readline_to_file_if_line_is_available()
-                if not (serial_data is None):
-                    sys.stdout.write("\r" + "                                       "
-                                            "                                       ")
-                    sys.stdout.flush()
-                    sys.stdout.write("\r" + str(serial_data))
-                    sys.stdout.flush()
-                if keyboard.is_pressed("q"):
-                    break
-            print("")
-            print("")
-        elif cmd.lower() == "log strip":
-            print("")
-            print("What is the delimiter of the incoming data?"
-                  "e.g.: incoming data: 'U1=0.243,U2=1.23,U3=1.002'; ',' is first delimiter, '=' is second delimiter")
-            delimiter = get_string_from_user()
-            print("What is the second delimiter? \n"
-                  "The second delimiter stands in front of the actual value you want "
-                  "to be saved.\n"
-                  "e.g.: incoming data: 'U1=0.243,U2=1.23,U3=1.002'; ',' is first delimiter, '=' is second delimiter")
-            second_delimiter = get_string_from_user()
-            print("Press 'q' to stop logging data.")
-            while True:
-                serial_data = serial.serial_readline_to_file_if_line_is_available()
-                if not (serial_data is None):
-                    sys.stdout.write("\r" + "                                       "
-                                            "                                       ")
-                    sys.stdout.flush()
-                    sys.stdout.write("\r" + str(serial_data))
-                    sys.stdout.flush()
-                    delete_valuenames_from_csv_file(filename=serial.filename, delimiter=delimiter,
-                                                           keep_value_after_this_upto_delimiter=second_delimiter)
-                if keyboard.is_pressed("q"):
-                    break
-            print("")
-            print("")
-        elif cmd.lower() == "write serial":
-            print("What should be written to serial?")
-            to_be_written_to_serial = get_string_from_user()
-            if to_be_written_to_serial is None or to_be_written_to_serial == "":
+        serial_commands()
+        while True:
+            cmd = get_string_from_user()
+            if cmd is None:
+                serial_commands()
                 continue
-            serial.serial_write_line(to_be_written_to_serial)
-            print(f"'{to_be_written_to_serial}' was sent to serial device!")
-            serial_commands()
-        elif cmd.lower() == "show old data" or cmd.lower() == "show old" or cmd.lower() == "print old" or cmd.lower() == "print old data":
-            print("Recieved data:")
-            print("")
-            serial.print_volatile_storage()
-            print("\n")
-            serial_commands()
-        elif cmd.lower() == "show update":
-            print("Press 'q' to stop updating data.")
-            print("")
-            while True:
-                serial_data = serial.serial_readline_if_line_is_available()
-                if not (serial_data is None):
-                    sys.stdout.write("\r" + "                                       "
-                                            "                                       ")
-                    sys.stdout.flush()
-                    sys.stdout.write("\r" + str(serial_data))
-                    sys.stdout.flush()
-                if keyboard.is_pressed("q"):
-                    break
-            print("")
-            print("")
-        elif cmd.lower() == "show serial":
-            print("Press 'q' to stop updating data.")
-            print("")
-            while True:
-                serial_data = serial.serial_readline_if_line_is_available()
-                if not (serial_data is None):
-                    print(serial_data)
-                if keyboard.is_pressed("q"):
-                    break
-            print("")
-            print("")
-            serial_commands()
-        else:
-            print("Invalid input. Try again or type 'close' to close program.")
-            serial_commands()
+            if cmd.lower() == "close":
+                sys.exit()
+            elif cmd.lower() == "set filename":
+                serial.set_filename_and_timestamp()
+                serial_commands()
+            elif cmd.lower() == "log" or cmd.lower() == "start logging":
+                print("")
+                print("Press 'q' to stop logging data.")
+                while True:
+                    serial_data = serial.serial_readline_to_file_if_line_is_available()
+                    if not (serial_data is None):
+                        sys.stdout.write("\r" + "                                       "
+                                                "                                       ")
+                        sys.stdout.flush()
+                        sys.stdout.write("\r" + str(serial_data))
+                        sys.stdout.flush()
+                    if keyboard.is_pressed("q"):
+                        break
+                print("")
+                print("")
+            elif cmd.lower() == "log strip":
+                print("")
+                print("What is the delimiter of the incoming data?"
+                      "e.g.: incoming data: 'U1=0.243,U2=1.23,U3=1.002'; ',' is first delimiter, '=' is second delimiter")
+                delimiter = get_string_from_user()
+                print("What is the second delimiter? \n"
+                      "The second delimiter stands in front of the actual value you want "
+                      "to be saved.\n"
+                      "e.g.: incoming data: 'U1=0.243,U2=1.23,U3=1.002'; ',' is first delimiter, '=' is second delimiter")
+                second_delimiter = get_string_from_user()
+                print("Press 'q' to stop logging data.")
+                while True:
+                    serial_data = serial.serial_readline_to_file_if_line_is_available()
+                    if not (serial_data is None):
+                        sys.stdout.write("\r" + "                                       "
+                                                "                                       ")
+                        sys.stdout.flush()
+                        sys.stdout.write("\r" + str(serial_data))
+                        sys.stdout.flush()
+                        delete_valuenames_from_csv_file(filename=serial.filename, delimiter=delimiter,
+                                                               keep_value_after_this_upto_delimiter=second_delimiter)
+                    if keyboard.is_pressed("q"):
+                        break
+                print("")
+                print("")
+            elif cmd.lower() == "write serial":
+                print("What should be written to serial?")
+                to_be_written_to_serial = get_string_from_user()
+                if to_be_written_to_serial is None or to_be_written_to_serial == "":
+                    continue
+                serial.serial_write_line(to_be_written_to_serial)
+                print(f"'{to_be_written_to_serial}' was sent to serial device!")
+                serial_commands()
+            elif cmd.lower() == "show old data" or cmd.lower() == "show old" or cmd.lower() == "print old" or cmd.lower() == "print old data":
+                print("Recieved data:")
+                print("")
+                serial.print_volatile_storage()
+                print("\n")
+                serial_commands()
+            elif cmd.lower() == "show update":
+                print("Press 'q' to stop updating data.")
+                print("")
+                while True:
+                    serial_data = serial.serial_readline_if_line_is_available()
+                    if not (serial_data is None):
+                        sys.stdout.write("\r" + "                                       "
+                                                "                                       ")
+                        sys.stdout.flush()
+                        sys.stdout.write("\r" + str(serial_data))
+                        sys.stdout.flush()
+                    if keyboard.is_pressed("q"):
+                        break
+                print("")
+                print("")
+            elif cmd.lower() == "show serial":
+                print("Press 'q' to stop updating data.")
+                print("")
+                while True:
+                    serial_data = serial.serial_readline_if_line_is_available()
+                    if not (serial_data is None):
+                        print(serial_data)
+                    if keyboard.is_pressed("q"):
+                        break
+                print("")
+                print("")
+                serial_commands()
+            else:
+                print("Invalid input. Try again or type 'close' to close program.")
+                serial_commands()
     
