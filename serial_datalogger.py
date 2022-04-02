@@ -257,7 +257,7 @@ class SerialClass:
                 for entry in all_available_com_ports:
                     if self.comport in entry:
                         device = entry
-                f.write(str(time) + " - " + str(device) + ";")
+                f.write(str(time) + " - " + str(device) + ",")
             f.write(str(line) + "\n")
             f.close()
             return str(line)
