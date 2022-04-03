@@ -258,7 +258,7 @@ class SerialClass:
                     if self.comport in entry:
                         device = entry
                 f.write(str(time) + " - " + str(device) + ",")
-            f.write(str(line) + "\n")
+            f.write(str(line))
             f.close()
             return str(line)
         else:
